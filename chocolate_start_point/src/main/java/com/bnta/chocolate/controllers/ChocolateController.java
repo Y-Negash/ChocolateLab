@@ -1,7 +1,10 @@
 package com.bnta.chocolate.controllers;
 
 import com.bnta.chocolate.models.Chocolate;
+import com.bnta.chocolate.models.ChocolateDTO;
+import com.bnta.chocolate.models.Estate;
 import com.bnta.chocolate.services.ChocolateService;
+import com.bnta.chocolate.services.EstateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,16 +20,17 @@ public class ChocolateController {
     @Autowired
     ChocolateService chocolateService;
 
+
     @GetMapping
     public ResponseEntity<List<Chocolate>> getAllChocolates(){
         List<Chocolate> chocolate  = chocolateService.getAllChocolates();
         return new ResponseEntity<>(chocolate, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Chocolate> newChocolate(@RequestBody Chocolate chocolate){
-         chocolateService.saveChocolate(chocolate);
-         return new ResponseEntity<>(chocolate, HttpStatus.CREATED);
+    @PostMapping("/newChocolate")
+    public ResponseEntity<Chocolate> addChocolate(@RequestBody ChocolateDTO chocolateDTO){
+        Chocolate chocolate = chocolateService.addNewChocolate(chocolateDTO);
+        return new ResponseEntity<>(chocolate, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{id}")
@@ -41,7 +45,6 @@ public class ChocolateController {
         }
      }
 
-
      @GetMapping("/Percentage")
     public ResponseEntity<List<Chocolate>> getChocolate(@RequestParam int cocoaPercentage){
         List<Chocolate> chocolates;
@@ -51,4 +54,5 @@ public class ChocolateController {
         } else
          return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
      }
+
 }
