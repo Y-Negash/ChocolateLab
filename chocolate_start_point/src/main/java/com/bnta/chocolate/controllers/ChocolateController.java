@@ -41,4 +41,14 @@ public class ChocolateController {
         }
      }
 
+
+     @GetMapping("/Percentage")
+    public ResponseEntity<List<Chocolate>> getChocolate(@RequestParam int cocoaPercentage){
+        List<Chocolate> chocolates;
+        if (cocoaPercentage >= 60){
+            chocolates = chocolateService.getCocoaPercentage(cocoaPercentage);
+            return new ResponseEntity<>(chocolates, HttpStatus.OK);
+        } else
+         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+     }
 }
