@@ -1,5 +1,6 @@
 package com.bnta.chocolate.components;
 
+import com.bnta.chocolate.models.Chocolate;
 import com.bnta.chocolate.models.Estate;
 import com.bnta.chocolate.services.ChocolateService;
 import com.bnta.chocolate.services.EstateService;
@@ -26,11 +27,15 @@ public class DataLoader implements ApplicationRunner {
         Estate estate4 = new Estate("Victoria", "Ghana");
         Estate estate5 = new Estate("Stollmeyer", "Brazil");
 
+        Chocolate choco1 = new Chocolate("FairTrade",40, estate1);
+
         estateService.saveEstate(estate1);
         estateService.saveEstate(estate2);
         estateService.saveEstate(estate3);
         estateService.saveEstate(estate4);
         estateService.saveEstate(estate5);
+
+        chocolateService.saveChocolate(choco1);
 
     }
 }
